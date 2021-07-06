@@ -4,56 +4,58 @@ import React, { useState } from 'react';
 import {
   Text,
   View,
-  TextInput,
-  TouchableOpacity,
   StatusBar
 } from 'react-native';
 import styles from './styles';
+import BotaoSomar from './Componentes/BotaoSomar';
+import BotaoSubtracao from './Componentes/BotaoSubtracao.js';
+import BotaoResetar from './Componentes/BotaoResetar';
 
 
-const App =() => {
-  
+const App = () => {
 
-  const [numero, setNumero] = useState(0);
 
-  const manipuladorSomar = () => {
-    setNumero(numero + 1)
+  const [numeros, setNumero] = useState(0);
 
+  const adicionaNumero = (numero) => {
+    setNumero(numero + 1 + numeros)
   }
 
-  const manipuladorSubtracao = () => {
-    setNumero(numero - 1)
+  const subtraiNumero = (numero) => {
+    setNumero(numeros - 1 - numero)
   }
 
-  const manipuladorResetar = () => {
+  const resetaNumero= () => {
     setNumero(0)
   }
 
   return (
     <View style={styles.container}>
-       <StatusBar 
-           barStyle="dark-content" 
-           backgroundColor="transparent"
-           translucent
-           />
+     
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
 
       <Text style={styles.title}>Contador</Text>
+
       <View style={styles.buttons}>
-      <TouchableOpacity onPress={manipuladorSomar} style={styles.sumButton} activeOpacity={0.5}>
-        <Text style={styles.sumTitle} >Somar</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={manipuladorSubtracao} style={styles.subtractionButton} activeOpacity={0.5}> 
-        <Text style={styles.subtractionTitle}>Subtrair</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={manipuladorResetar} style={styles.resetButton} activeOpacity={0.5}>
-        <Text style={styles.resetTitle}>Resetar</Text>
-      </TouchableOpacity>
+
+        <BotaoSomar aoSalvar={adicionaNumero} />
+
+        <BotaoSubtracao aoSubtrair={subtraiNumero} />
+
+        <BotaoResetar aoResetar={resetaNumero} />
+       
+        
       </View>
-     
-      <Text style={styles.result}>{numero}</Text>
+
+      <Text style={styles.result} >{numeros}</Text>
+   
     </View>
   )
-  
+
 };
 
 
